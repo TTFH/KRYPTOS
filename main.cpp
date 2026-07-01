@@ -24,6 +24,8 @@
 #include "src/ctf/PK4.h"
 #include "src/ctf/PK5.h"
 #include "src/ctf/PK6.h"
+#include "src/ctf/PK7.h"
+#include "src/ctf/PK8.h"
 */
 int main() {
 	DecodeQ1();
@@ -43,6 +45,8 @@ int main() {
 	DecodePK4();
 	DecodePK5();
 	DecodePK6();
+	DecodePK7();
+	DecodePK8();
 */
 	_setmode(_fileno(stdout), _O_U16TEXT);
 	DecodeCP1();
