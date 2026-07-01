@@ -27,7 +27,7 @@ void DecodeK3() {
 	"but presently details of the room within emerged from the mist. X"
 	"Can you see anything Q");
 
-	Transposition cipher(ciphertext.length());
+	RotatingTransposition cipher(ciphertext.length());
 
 	cipher.Resize(42);
 	cipher.FromRows(plaintext);
