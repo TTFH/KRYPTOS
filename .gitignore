@@ -1,8 +1,8 @@
 .vscode/
 obj/
 txt/
-src/ctf/
 kryptos.exe
+kryptos
 *.py
 *.txt
 *.png

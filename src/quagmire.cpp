@@ -143,5 +143,10 @@ StringT Quagmire<StringT, CharT>::Decode(const StringT& ciphertext) const {
 	return Process(ciphertext, false);
 }
 
+template<typename StringT, typename CharT>
+const StringT Quagmire<StringT, CharT>::GetKey() const {
+	return key;
+}
+
 template class Quagmire<string, char>;
 template class Quagmire<wstring, wchar_t>;

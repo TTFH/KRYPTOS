@@ -23,6 +23,7 @@ public:
 	static Quagmire QuagmireIV(const StringT& rep_key, const StringT& key);
 	StringT Encode(const StringT& plaintext) const;
 	StringT Decode(const StringT& ciphertext) const;
+	const StringT GetKey() const;
 };
 
 extern template class Quagmire<string, char>;

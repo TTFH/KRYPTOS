@@ -4,7 +4,7 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -Wpedantic -O3
 
 SOURCES = main.cpp
-SOURCES += src/utils.cpp src/quagmire.cpp src/hill_cipher.cpp src/transposition.cpp
+SOURCES += src/utils.cpp src/beaufort.cpp src/quagmire.cpp src/hill_cipher.cpp src/transposition.cpp
 
 OBJDIR = obj
 OBJS = $(SOURCES:.cpp=.o)
