@@ -1,8 +1,9 @@
 .vscode/
+ciphertext/
 obj/
 txt/
-kryptos.exe
 kryptos
+kryptos.exe
 *.py
-*.txt
 *.png
+*.txt

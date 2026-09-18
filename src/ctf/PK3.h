@@ -25,8 +25,8 @@ void DecodePK3() {
 	"At last a Viennese anatomist said he saw such an instrument used at a surgical demonstration in Bern."
 	"I wrote to his address. No answer came. I wrote again.");
 
-	const QuagmireS cipher1 = QuagmireS::QuagmireIII("KRYPTOS", "PENTIMENTO");
-	const QuagmireS cipher2 = QuagmireS::QuagmireIII("KRYPTOS", "ORDINATE");
+	const QuagmireS cipher1 = QuagmireS::QuagmireIII("KRYPTOS", "ORDINATE");
+	const QuagmireS cipher2 = QuagmireS::QuagmireIII("KRYPTOS", "PENTIMENTO");
 
 	const string encoded1 = cipher1.Encode(plaintext);
 	const string encoded2 = cipher2.Encode(encoded1);
