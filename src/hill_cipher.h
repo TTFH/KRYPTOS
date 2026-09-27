@@ -2,12 +2,13 @@
 #define _HILL_CIPHER_H
 
 #include "utils.h"
+#include "pipeline.h"
 
 #include <glm/glm.hpp>
 
 using namespace glm;
 
-class HillCipher {
+class HillCipher: public ICipher {
 private:
 	string alphabet;
 	int alphabet_size;
@@ -21,8 +22,8 @@ private:
 	string Process(const string& text, const mat3& matrix) const;
 public:
 	HillCipher(const string& prefix, const string& keyword);
-	string Encode(const string& plaintext) const;
-	string Decode(const string& ciphertext) const;
+	string Encode(const string& plaintext) override;
+	string Decode(const string& ciphertext) override;
 };
 
 #endif

@@ -12,7 +12,7 @@ void DecodeQ3() {
 	const string plaintext = Normalize(
 	"The same keyed alphabet is used for plain and cipher alphabets");
 
-	const QuagmireS cipher = QuagmireS::QuagmireIII("AUTOMOBILE", "HIGHWAY");
+	QuagmireS cipher = QuagmireS::QuagmireIII("AUTOMOBILE", "HIGHWAY");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

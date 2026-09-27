@@ -31,15 +31,11 @@ void DecodePK2() {
 
 	ColumnarTransposition cipher(ciphertext.length(), "MARGINS");
 
-	cipher.FromRows(plaintext);
-	cipher.Encode();
-	const string encoded = cipher.FetchByColumns();
+	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)
 		throw runtime_error("PK2 encoding failed.");
 
-	cipher.FromColumns(ciphertext);
-	cipher.Decode();
-	const string decoded = cipher.FetchByRows();
+	const string decoded = cipher.Decode(ciphertext);
 	if (decoded != plaintext)
 		throw runtime_error("PK2 decoding failed.");
 

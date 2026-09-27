@@ -134,18 +134,13 @@ Quagmire<StringT, CharT> Quagmire<StringT, CharT>::QuagmireIV(const StringT& rep
 }
 
 template<typename StringT, typename CharT>
-StringT Quagmire<StringT, CharT>::Encode(const StringT& plaintext) const {
+StringT Quagmire<StringT, CharT>::Encode(const StringT& plaintext) {
 	return Process(plaintext, true);
 }
 
 template<typename StringT, typename CharT>
-StringT Quagmire<StringT, CharT>::Decode(const StringT& ciphertext) const {
+StringT Quagmire<StringT, CharT>::Decode(const StringT& ciphertext) {
 	return Process(ciphertext, false);
-}
-
-template<typename StringT, typename CharT>
-const StringT Quagmire<StringT, CharT>::GetKey() const {
-	return key;
 }
 
 template class Quagmire<string, char>;

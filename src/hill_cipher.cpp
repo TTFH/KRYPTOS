@@ -103,10 +103,10 @@ HillCipher::HillCipher(const string& prefix, const string& keyword) {
 	ComputeInverseMatrix();
 }
 
-string HillCipher::Encode(const string& plaintext) const {
+string HillCipher::Encode(const string& plaintext) {
 	return Process(plaintext, key_matrix);
 }
 
-string HillCipher::Decode(const string& ciphertext) const {
+string HillCipher::Decode(const string& ciphertext) {
 	return Process(ciphertext, inv_key_matrix);
 }

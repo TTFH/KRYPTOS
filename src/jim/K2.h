@@ -28,7 +28,7 @@ void DecodeK2() {
 	"seventy seven degrees eight minutes forty four seconds west X"
 	"Layer two.");
 
-	const QuagmireS cipher = QuagmireS::QuagmireIII("KRYPTOS", "ABSCISSA");
+	QuagmireIII cipher("KRYPTOS", "ABSCISSA");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

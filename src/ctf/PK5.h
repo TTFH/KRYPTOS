@@ -2,6 +2,7 @@
 #define _PK5_H
 
 #include <stdexcept>
+#include "../pipeline.h"
 #include "../quagmire.h"
 #include "../transposition.h"
 
@@ -33,23 +34,18 @@ void DecodePK5() {
 	"I carried it to the Whitesmith, and he took it from me and opened the inner door.");
 
 	ColumnarTransposition cipher1(ciphertext.length(), "TWOYEARS");
-	const QuagmireS cipher2 = QuagmireS::QuagmireIII("KRYPTOS", PK4);
+	QuagmireIII cipher2("KRYPTOS", PK4);
+	Pipeline pipeline({&cipher1, &cipher2});
 
-	cipher1.FromRows(plaintext);
-	cipher1.Encode();
-	const string encoded1 = cipher1.FetchByColumns();
-	const string encoded2 = cipher2.Encode(encoded1);
-	if (encoded2 != ciphertext)
+	const string encoded = pipeline.Encode(plaintext);
+	if (encoded != ciphertext)
 		throw runtime_error("PK5 encoding failed.");
 
-	const string decoded2 = cipher2.Decode(ciphertext);
-	cipher1.FromColumns(decoded2);
-	cipher1.Decode();
-	const string decoded1 = cipher1.FetchByRows();
-	if (decoded1 != plaintext)
+	const string decoded = pipeline.Decode(ciphertext);
+	if (decoded != plaintext)
 		throw runtime_error("PK5 decoding failed.");
 
-	printf("%s\n\n", decoded1.c_str());
+	printf("%s\n\n", decoded.c_str());
 }
 
 #endif

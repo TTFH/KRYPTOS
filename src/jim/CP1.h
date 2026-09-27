@@ -42,7 +42,7 @@ void DecodeCP1() {
 	"И УВАЖЕНИЕ СОСЛУЖИВЦЕВ. ОДНАКЛ НЕОБХОДИМЫЕ ДЛЯ ДОСТИЖЕНИЯ ЭТОЙ ЦЕЛИ СПИСОБ ЗЕЙСТВИЙ И ОБРАЗ"
 	"ПОВЕДНИЯ В КОРНЕ ПРОТИВОРЕЧАТ ЭТИКЕ И МОРАЛИ ОБЩЕСТВА В ОБЛАСТИ МЕЖЛИЧНОСТНЫХ ОТНОШЕНИЙ");
 
-	const QuagmireW cipher = QuagmireW::QuagmireIV(L"ТЕНЬ", L"МЕДУЗА");
+	QuagmireW cipher = QuagmireW::QuagmireIV(L"ТЕНЬ", L"МЕДУЗА");
 
 	const wstring encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

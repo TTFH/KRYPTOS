@@ -20,7 +20,7 @@ void DecodePK1() {
 	"The accession log says once unraveled it reveals the route to the lost archive of Pellegrin."
 	"Twelve prior archivists tried to unravel it. All failed.");
 
-	const QuagmireS cipher = QuagmireS::QuagmireIII("KRYPTOS", "PROVENANCE");
+	QuagmireIII cipher("KRYPTOS", "PROVENANCE");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

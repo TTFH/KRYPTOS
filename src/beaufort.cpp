@@ -46,7 +46,3 @@ string Beaufort::Encode(const string& plaintext) const {
 string Beaufort::Decode(const string& ciphertext) const {
 	return Process(ciphertext);
 }
-
-const string Beaufort::GetKey() const {
-	return key;
-}

@@ -2,6 +2,7 @@
 #define _PK4_H
 
 #include <stdexcept>
+#include "../pipeline.h"
 #include "../quagmire.h"
 #include "../transposition.h"
 
@@ -24,26 +25,19 @@ void DecodePK4() {
 	"One of his needles is hidden in the barn. I have begun to work.");
 
 	ColumnarTransposition cipher1(ciphertext.length(), "UNDERLAY");
-	const QuagmireS cipher2 = QuagmireS::QuagmireIII("KRYPTOS", "OCHRE");
-	const QuagmireS cipher3 = QuagmireS::QuagmireIII("KRYPTOS", "VERDIGRIS");
+	QuagmireIII cipher2("KRYPTOS", "OCHRE");
+	QuagmireIII cipher3("KRYPTOS", "VERDIGRIS");
+	Pipeline pipeline({&cipher1, &cipher2, &cipher3});
 
-	cipher1.FromRows(plaintext);
-	cipher1.Encode();
-	const string encoded1 = cipher1.FetchByColumns();
-	const string encoded2 = cipher2.Encode(encoded1);
-	const string encoded3 = cipher3.Encode(encoded2);
-	if (encoded3 != ciphertext)
+	const string encoded = pipeline.Encode(plaintext);
+	if (encoded != ciphertext)
 		throw runtime_error("PK4 encoding failed.");
 
-	const string decoded3 = cipher3.Decode(ciphertext);
-	const string decoded2 = cipher2.Decode(decoded3);
-	cipher1.FromColumns(decoded2);
-	cipher1.Decode();
-	const string decoded1 = cipher1.FetchByRows();
-	if (decoded1 != plaintext)
+	const string decoded = pipeline.Decode(ciphertext);
+	if (decoded != plaintext)
 		throw runtime_error("PK4 decoding failed.");
 
-	printf("%s\n\n", decoded1.c_str());
+	printf("%s\n\n", decoded.c_str());
 }
 
 #endif

@@ -12,7 +12,6 @@ public:
 	Beaufort(const string& key, const string& alphabet_key = "");
 	string Encode(const string& plaintext) const;
 	string Decode(const string& ciphertext) const;
-	const string GetKey() const;
 };
 
 #endif

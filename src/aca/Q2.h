@@ -12,7 +12,7 @@ void DecodeQ2() {
 	const string plaintext = Normalize(
 	"In the Quag Two a straight plain alphabet is run against a keyed cipher alphabet.");
 
-	const QuagmireS cipher = QuagmireS::QuagmireII("SPRINGFEVER", "FLOWER");
+	QuagmireS cipher = QuagmireS::QuagmireII("SPRINGFEVER", "FLOWER");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

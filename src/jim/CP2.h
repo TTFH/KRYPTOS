@@ -45,7 +45,7 @@ void DecodeCP2() {
 	"УЧЕНЫХ К ВМЕШАТЕЛЬСТВУ ВО ГНУТРЕННИЕ ДЕЛА НАШЕЙ СТРАНЫ И ВЫСТУПЛЕНИЯТ В ЗАЩИТУ ЛИЦ,"
 	"ОСУЖДЕННЫХ ЗА СОВЕРШЕНИЕ ОСОБО ОПАСНЫХ ГОСУДАРСТВЕННЫ");
 
-	const QuagmireW cipher = QuagmireW::QuagmireIV(L"ТЕНЬ", L"МЕДУЗА");
+	QuagmireW cipher = QuagmireW::QuagmireIV(L"ТЕНЬ", L"МЕДУЗА");
 
 	const wstring encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

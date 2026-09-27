@@ -12,7 +12,7 @@ void DecodeQ4() {
 	const string plaintext = Normalize(
 	"This one employs three keywords");
 
-	const QuagmireS cipher = QuagmireS::QuagmireIV("SENORY", "PERCEPTION", "EXTRA");
+	QuagmireS cipher = QuagmireS::QuagmireIV("SENORY", "PERCEPTION", "EXTRA");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

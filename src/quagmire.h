@@ -1,9 +1,10 @@
 #ifndef _QUAGMIRE_H
 #define _QUAGMIRE_H
 
+#include "pipeline.h"
 #include "utils.h"
 
-template<typename StringT, typename CharT>
+template <typename StringT, typename CharT>
 class Quagmire {
 private:
 	StringT key;
@@ -21,9 +22,8 @@ public:
 	static Quagmire QuagmireIII(const StringT& rep_key, const StringT& key);
 	static Quagmire QuagmireIV(const StringT& top_key, const StringT& rep_key, const StringT& key);
 	static Quagmire QuagmireIV(const StringT& rep_key, const StringT& key);
-	StringT Encode(const StringT& plaintext) const;
-	StringT Decode(const StringT& ciphertext) const;
-	const StringT GetKey() const;
+	StringT Encode(const StringT& plaintext);
+	StringT Decode(const StringT& ciphertext);
 };
 
 extern template class Quagmire<string, char>;
@@ -31,5 +31,19 @@ extern template class Quagmire<wstring, wchar_t>;
 
 typedef Quagmire<string, char> QuagmireS;
 typedef Quagmire<wstring, wchar_t> QuagmireW;
+
+class QuagmireIII : public ICipher {
+private:
+	QuagmireS cipher;
+public:
+	QuagmireIII(const string& rep_key, const string& key) :
+	cipher(QuagmireS::QuagmireIII(rep_key, key)) {}
+	string Encode(const string& plaintext) override {
+		return cipher.Encode(plaintext);
+	}
+	string Decode(const string& ciphertext) override {
+		return cipher.Decode(ciphertext);
+	}
+};
 
 #endif

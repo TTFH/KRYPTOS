@@ -12,7 +12,7 @@ void DecodeK1() {
 	const string plaintext = Normalize(
 	"Between subtle shading and the absence of light lies the nuance of iqlusion.");
 
-	const QuagmireS cipher = QuagmireS::QuagmireIII("KRYPTOS", "PALIMPSEST");
+	QuagmireIII cipher("KRYPTOS", "PALIMPSEST");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)

@@ -78,7 +78,7 @@ Transposition::~Transposition() {
 	delete[] grid;
 }
 
-RotatingTransposition::RotatingTransposition(unsigned int size) : Transposition(size) {
+RotatingTransposition::RotatingTransposition(unsigned int size, unsigned int width) : Transposition(size), width(width) {
 }
 
 void RotatingTransposition::Resize(unsigned int cols) {
@@ -98,32 +98,48 @@ void RotatingTransposition::Rotate(Direction dir) {
 	cols = rows;
 }
 
+string RotatingTransposition::Encode(const string& plaintext) {
+	Resize(width);
+	FromRows(plaintext);
+	Rotate(CW);
+	return FetchByRows();
+}
+
+string RotatingTransposition::Decode(const string& ciphertext) {
+	Resize(size / width);
+	FromRows(ciphertext);
+	Rotate(CCW);
+	return FetchByRows();
+}
+
 ColumnarTransposition::ColumnarTransposition(unsigned int size, const string& keyword) : Transposition(size), keyword(keyword) {
 	ResizeProxy(keyword.length());
 }
 
-void ColumnarTransposition::Encode() {
+void ColumnarTransposition::SwapColumns(bool encode) {
 	if (keyword.length() != cols)
 		throw invalid_argument("Keyword length does not match grid column count.");
 	const vector<int> order = GetLetterOrder(keyword);
 	char* new_grid = new char[size];
 	const unsigned int rows = size / cols;
 	for (unsigned int row = 0; row < rows; row++)
-		for (unsigned int col = 0; col < cols; col++)
-			new_grid[row * cols + order[col]] = grid[row * cols + col];
+		for (unsigned int col = 0; col < cols; col++) {
+			unsigned int x = encode ? order[col] : col;
+			unsigned int y = encode ? col : order[col];
+			new_grid[row * cols + x] = grid[row * cols + y];
+		}
 	delete[] grid;
 	grid = new_grid;
 }
 
-void ColumnarTransposition::Decode() {
-	if (keyword.length() != cols)
-		throw invalid_argument("Keyword length does not match grid column count.");
-	const vector<int> order = GetLetterOrder(keyword);
-	char* new_grid = new char[size];
-	const unsigned int rows = size / cols;
-	for (unsigned int row = 0; row < rows; row++)
-		for (unsigned int col = 0; col < cols; col++)
-			new_grid[row * cols + col] = grid[row * cols + order[col]];
-	delete[] grid;
-	grid = new_grid;
+string ColumnarTransposition::Encode(const string& plaintext) {
+	FromRows(plaintext);
+	SwapColumns(true);
+	return FetchByColumns();
+}
+
+string ColumnarTransposition::Decode(const string& ciphertext) {
+	FromColumns(ciphertext);
+	SwapColumns(false);
+	return FetchByRows();
 }

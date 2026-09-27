@@ -2,6 +2,7 @@
 #define _K3_H
 
 #include <stdexcept>
+#include "../pipeline.h"
 #include "../transposition.h"
 
 void DecodeK3() {
@@ -27,25 +28,15 @@ void DecodeK3() {
 	"but presently details of the room within emerged from the mist. X"
 	"Can you see anything Q");
 
-	RotatingTransposition cipher(ciphertext.length());
+	RotatingTransposition cipher1(ciphertext.length(), 42);
+	RotatingTransposition cipher2(ciphertext.length(), 14);
+	Pipeline pipeline({&cipher1, &cipher2});
 
-	cipher.Resize(42);
-	cipher.FromRows(plaintext);
-	//cipher.PrintGrid();
-	cipher.Rotate(CW);
-	cipher.Resize(14);
-	//cipher.PrintGrid();
-	cipher.Rotate(CW);
-	const string encoded = cipher.FetchByRows();
+	const string encoded = pipeline.Encode(plaintext);
 	if (encoded != ciphertext)
 		throw runtime_error("K3 encoding failed.");
 
-	cipher.Resize(24);
-	cipher.FromRows(ciphertext);
-	cipher.Rotate(CCW);
-	cipher.Resize(8);
-	cipher.Rotate(CCW);
-	const string decoded = cipher.FetchByRows();
+	const string decoded = pipeline.Decode(ciphertext);
 	if (decoded != plaintext)
 		throw runtime_error("K3 decoding failed.");
 

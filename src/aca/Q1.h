@@ -12,7 +12,7 @@ void DecodeQ1() {
 	const string plaintext = Normalize(
 	"The Quag One is a periodic cipher with a keyed plain alphabet run against a straight cipher alphabet.");
 
-	const QuagmireS cipher = QuagmireS::QuagmireI("SPRINGFEVER", "FLOWER");
+	QuagmireS cipher = QuagmireS::QuagmireI("SPRINGFEVER", "FLOWER");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)
