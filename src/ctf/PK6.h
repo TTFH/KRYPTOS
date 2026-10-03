@@ -29,10 +29,11 @@ void DecodePK6() {
 	"I ask what he does with them, and he says they are only the residue of his practice."
 	"He tells me that if I study under him for ten years, he will let me take one of my own making.");
 
-	ColumnarTransposition cipher1(ciphertext.length(), "HANDIWORK");
-	ColumnarTransposition cipher2(ciphertext.length(), "SMITHWORK");
-	QuagmireIII cipher3("KRYPTOS", "PORTAL");
-	Pipeline pipeline({&cipher1, &cipher2, &cipher3});
+	Pipeline pipeline({
+		new ColumnarTransposition(ciphertext.length(), "HANDIWORK"),
+		new ColumnarTransposition(ciphertext.length(), "SMITHWORK"),
+		new QuagmireIII("KRYPTOS", "PORTAL"),
+	});
 
 	const string encoded = pipeline.Encode(plaintext);
 	if (encoded != ciphertext)

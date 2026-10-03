@@ -26,9 +26,10 @@ void DecodePK7() {
 	"He has me repeat the same step four times, with slight variations. Still my hand falters."
 	"I am patient, but I know this is not my calling. I have made peace with it and will go home soon.");
 
-	QuagmireIII cipher1("KRYPTOS", "ANNEAL");
-	HillCipher cipher2("KRYPTOS", "ALCHEMIST");
-	Pipeline pipeline({&cipher1, &cipher2});
+	Pipeline pipeline({
+		new QuagmireIII("KRYPTOS", "ANNEAL"),
+		new HillCipher("KRYPTOS", "ALCHEMIST"),
+	});
 
 	const string encoded = pipeline.Encode(plaintext);
 	if (encoded != ciphertext)

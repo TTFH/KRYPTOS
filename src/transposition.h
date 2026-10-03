@@ -45,4 +45,11 @@ public:
 	string Decode(const string& ciphertext) override;
 };
 
+class SpiralTransposition: public Transposition {
+public:
+	SpiralTransposition(unsigned int size, unsigned int width);
+	string Encode(const string& plaintext) override;
+	string Decode(const string& ciphertext) override;
+};
+
 #endif

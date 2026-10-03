@@ -28,9 +28,10 @@ void DecodeK3() {
 	"but presently details of the room within emerged from the mist. X"
 	"Can you see anything Q");
 
-	RotatingTransposition cipher1(ciphertext.length(), 42);
-	RotatingTransposition cipher2(ciphertext.length(), 14);
-	Pipeline pipeline({&cipher1, &cipher2});
+	Pipeline pipeline({
+		new RotatingTransposition(ciphertext.length(), 42),
+		new RotatingTransposition(ciphertext.length(), 14),
+	});
 
 	const string encoded = pipeline.Encode(plaintext);
 	if (encoded != ciphertext)

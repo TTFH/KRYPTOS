@@ -39,10 +39,10 @@ Beaufort::Beaufort(const string& key, const string& alphabet_key) : key(key) {
 	alphabet = Deduplicate(alphabet_key + ENGLISH);
 }
 
-string Beaufort::Encode(const string& plaintext) const {
+string Beaufort::Encode(const string& plaintext) {
 	return Process(plaintext);
 }
 
-string Beaufort::Decode(const string& ciphertext) const {
+string Beaufort::Decode(const string& ciphertext) {
 	return Process(ciphertext);
 }

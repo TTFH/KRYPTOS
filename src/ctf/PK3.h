@@ -26,9 +26,10 @@ void DecodePK3() {
 	"At last a Viennese anatomist said he saw such an instrument used at a surgical demonstration in Bern."
 	"I wrote to his address. No answer came. I wrote again.");
 
-	QuagmireIII cipher1("KRYPTOS", "ORDINATE");
-	QuagmireIII cipher2("KRYPTOS", "PENTIMENTO");
-	Pipeline pipeline({&cipher1, &cipher2});
+	Pipeline pipeline({
+		new QuagmireIII("KRYPTOS", "ORDINATE"),
+		new QuagmireIII("KRYPTOS", "PENTIMENTO"),
+	});
 
 	const string encoded = pipeline.Encode(plaintext);
 	if (encoded != ciphertext)

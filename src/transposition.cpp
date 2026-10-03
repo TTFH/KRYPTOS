@@ -25,9 +25,7 @@ static vector<int> GetLetterOrder(const string& word) {
 void Transposition::ResizeProxy(unsigned int cols) {
 	if (size % cols != 0)
 		throw invalid_argument("Grid size must be divisible by column count.");
-	const string text = FetchByRows();
 	this->cols = cols;
-	FromRows(text);
 }
 
 Transposition::Transposition(unsigned int size) : size(size), cols(size) {
@@ -141,5 +139,63 @@ string ColumnarTransposition::Encode(const string& plaintext) {
 string ColumnarTransposition::Decode(const string& ciphertext) {
 	FromColumns(ciphertext);
 	SwapColumns(false);
+	return FetchByRows();
+}
+
+typedef pair<unsigned int, unsigned int> Coord;
+
+static vector<Coord> spiralCoords(int rows, int cols) {
+	const int moves[4][2] = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } }; // down, left, up, right
+	const unsigned int size = rows * cols;
+
+	vector<Coord> order;
+	order.reserve(size);
+	bool* seen = new bool[size]();
+
+	int r = 0;
+	int c = cols - 1;
+	unsigned int d = 0;
+
+	for (unsigned int i = 0; i < size; i++) {
+		order.push_back(Coord(r, c));
+		seen[r * cols + c] = true;
+
+		int nr = r + moves[d][0];
+		int nc = c + moves[d][1];
+
+		if (nr < 0 || nr >= rows || nc < 0 || nc >= cols || seen[nr * cols + nc]) {
+			d = (d + 1) % 4;
+			nr = r + moves[d][0];
+			nc = c + moves[d][1];
+		}
+
+		r = nr;
+		c = nc;
+	}
+
+	delete[] seen;
+	return order;
+}
+
+SpiralTransposition::SpiralTransposition(unsigned int size, unsigned int width) : Transposition(size) {
+	ResizeProxy(width);
+}
+
+string SpiralTransposition::Encode(const string& plaintext) {
+	FromRows(plaintext);
+	string text;
+	text.reserve(size);
+	unsigned int rows = plaintext.length() / cols;
+	const vector<Coord> order = spiralCoords(rows, cols);
+	for (unsigned int i = 0; i < size; i++)
+		text += grid[order[i].first * cols + order[i].second];
+	return text;
+}
+
+string SpiralTransposition::Decode(const string& ciphertext) {
+	unsigned int rows = ciphertext.length() / cols;
+	const vector<Coord> order = spiralCoords(rows, cols);
+	for (unsigned int i = 0; i < size; i++)
+		grid[order[i].first * cols + order[i].second] = ciphertext[i];
 	return FetchByRows();
 }

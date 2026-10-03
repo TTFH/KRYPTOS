@@ -30,6 +30,10 @@ public:
 			result = (*it)->Decode(result);
 		return result;
 	}
+	~Pipeline() {
+		for (vector<ICipher*>::const_iterator it = ciphers.begin(); it != ciphers.end(); it++)
+			delete *it;
+	}
 };
 
 #endif

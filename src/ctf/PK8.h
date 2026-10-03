@@ -19,11 +19,12 @@ void DecodePK8() {
 	"I am grateful to my teacher, but the archive is my true calling, and the knot awaits."
 	"I leave the Whitesmith a short letter.");
 
-	QuagmireIII cipher1("KRYPTOS", "METE");
-	QuagmireIII cipher2("KRYPTOS", "METER");
-	QuagmireIII cipher3("KRYPTOS", "METIER");
-	QuagmireIII cipher4("KRYPTOS", "MASTERY");
-	Pipeline pipeline({&cipher1, &cipher2, &cipher3, &cipher4});
+	Pipeline pipeline({
+		new QuagmireIII("KRYPTOS", "METE"),
+		new QuagmireIII("KRYPTOS", "METER"),
+		new QuagmireIII("KRYPTOS", "METIER"),
+		new QuagmireIII("KRYPTOS", "MASTERY"),
+	});
 
 	const string encoded = pipeline.Encode(plaintext);
 	if (encoded != ciphertext)

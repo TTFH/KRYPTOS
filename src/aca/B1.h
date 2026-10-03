@@ -12,7 +12,7 @@ void DecodeB1() {
 	const string plaintext = Normalize(
 	"C equals K minus P.");
 
-	const Beaufort cipher("RECIPROCAL");
+	Beaufort cipher("RECIPROCAL");
 
 	const string encoded = cipher.Encode(plaintext);
 	if (encoded != ciphertext)
